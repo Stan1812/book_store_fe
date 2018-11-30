@@ -1,0 +1,29 @@
+.checkitem {
+  display: flex;
+  flex-direction: row;
+}
+.check {
+  flex: 1;
+}
+.book {
+  flex: 10;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  .bookImg {
+    flex: 1;
+    img {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .bookInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .rate {
+      color: #e09015;
+    }
+  }
+}
