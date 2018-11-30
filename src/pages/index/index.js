@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { NavBar, Carousel, WingBlank } from 'antd-mobile';
 import { connect } from 'dva';
 import BookItem from './components/BookItem';
-
 @connect(({ choice }) => ({
   choice,
 }))
-class Index extends PureComponent {
+class Index extends Component {
   componentDidMount() {
-    console.log(this.props);
+    this.props.dispatch({ type: 'choice/getChoiceBook' });
   }
   render() {
     const { route, choice } = this.props;

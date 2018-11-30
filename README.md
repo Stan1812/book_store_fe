@@ -29,20 +29,16 @@
 ## 使用
 
 ```javascript
-
 // 安装项目
-
-git clone
-cd my-project
-
-// 检出依赖
-yarn
-
+git clone `xxx`
+cd `xxx`
+// 安装依赖
+npm i
 // 运行
-yarn start
-
+npm start
 // 打包
-yarn build
-
+npm build
 // 更多命令可在package.json中查看
 ```
+## 使用Ant-design
+文档见：![Ant design](https://mobile.ant.design/index-cn)
