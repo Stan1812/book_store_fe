@@ -32,8 +32,7 @@
 
 // 安装项目
 
-git clone --depth=1 https://github.com/jinjinwa/umi-antd-mobile.git my-project
-
+git clone
 cd my-project
 
 // 检出依赖
