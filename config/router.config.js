@@ -10,9 +10,14 @@ export default [
       },
       { path: '/login', component: './login/index', title: '登录' },
       { path: '/category', component: './category/index', title: '分类' },
-      { path: '/me', component: './mine/index', title: 'mine' },
+      { path: '/me', component: './mine/index', title: '我的' },
       { path: '/shop', component: './shopcart/index', title: '购物车' },
       { path: '/test', component: './test/index', title: '测试页面' },
+      {
+        path: '/detail',
+        component: '../layouts/SimpleLayout',
+        routes: [{ path: '/detail/:id', component: './detail/index' }],
+      },
       {
         path: '/exception',
         component: '../layouts/ExceptionLayout',

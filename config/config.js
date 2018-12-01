@@ -31,8 +31,8 @@ export default {
   routes: pageRoutes,
   // Theme for antd-mobile
   theme: {
-    'brand-primary': '#00CC99',
-    'brand-primary-tap': '#00CC66',
+    // 'brand-primary': '#1890ff',
+    // 'brand-primary-tap': '#00CC66',
   },
   //   ignoreMomentLocale: true,
   lessLoaderOptions: {

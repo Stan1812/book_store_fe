@@ -12,6 +12,7 @@ class Index extends Component {
   }
   render() {
     const { route, choice } = this.props;
+    console.log('fuck',choice)
     return (
       <div>
         <NavBar mode="light">{route.title}</NavBar>

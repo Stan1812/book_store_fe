@@ -7,9 +7,10 @@ export default {
   effects: {
     *getChoiceBook(actions, { call, put }) {
       let listResult = yield BookAPI.getChoiceBook();
+      console.log(listResult)
       yield put({
         type: 'putBooks',
-        choosenBookList: listResult.list,
+        choosenBookList: listResult,
       });
     },
   },

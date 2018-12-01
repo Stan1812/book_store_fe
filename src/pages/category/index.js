@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import router from "umi/router"
 import { connect } from 'dva';
 import { Card, WingBlank, WhiteSpace, NavBar, Icon } from 'antd-mobile';
 import { Rate } from 'antd';
@@ -11,10 +12,16 @@ import testimg from '../../assets/yay.jpg';
 class Category extends PureComponent {
   componentDidMount() {
     console.log(this.props);
+    this.props.dispatch({type:"category/getAllBooks"})
   }
+
+  goDetail = val => {
+    router.push(`/detail/${val}`);
+  };
   render() {
     const { route, category } = this.props;
     const choosenBooks = category.list;
+    console.log(choosenBooks)
     return (
       <div className={styles.index}>
         <NavBar mode="light">{route.title}</NavBar>{' '}
@@ -23,13 +30,17 @@ class Category extends PureComponent {
             <WhiteSpace size="lg" />
             <Card>
               <Card.Header title={book.name} extra={<span>{book.author}</span>} />
-              <Card.Body>
+              <Card.Body
+                onClick={() => {
+                  this.goDetail(book.id);
+                }}
+              >
                 <div className={styles.book}>
                   <div className={styles.bookImg}>
-                    <img src={testimg} />
+                    <img src={`http://localhost:8080/image/${book.id-1}.jpg`} />
                   </div>
                   <div className={styles.bookInfo}>
-                    <div>“{book.quote}”</div>
+                    <div>“{book.description}”</div>
                     <WhiteSpace />
                     <div>
                       <Rate disabled allowHalf value={book.score / 2} />{' '}
@@ -37,7 +48,7 @@ class Category extends PureComponent {
                     </div>
                     <WhiteSpace />
                     <div>
-                      {book.numberOfComments}
+                      {book.commentNum}
                       人评价
                     </div>
                   </div>

@@ -41,4 +41,4 @@ npm build
 // 更多命令可在package.json中查看
 ```
 ## 使用Ant-design
-文档见：![Ant design](https://mobile.ant.design/index-cn)
+文档见：[Ant design](https://mobile.ant.design/index-cn)

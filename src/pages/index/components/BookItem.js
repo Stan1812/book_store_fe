@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import router from 'umi/router';
 import styles from './bookitem.less';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
 import { Rate } from 'antd';
@@ -6,7 +7,10 @@ import testimg from '../../../assets/yay.jpg';
 
 class BookItem extends PureComponent {
   componentDidMount() {
-    console.log('fuck', this.props);
+    // console.log('fuck', this.props);
+  }
+  goDetail= (val)=>{
+    router.push(`/detail/${val}`);
   }
   render() {
     const { book } = this.props;
@@ -17,12 +21,12 @@ class BookItem extends PureComponent {
           <Card.Body>
             <div className={styles.bookItem}>
               <div className={styles.bookImg}>
-                <img src={testimg} />
+                <img src={`http://localhost:8080/image/${book.id-1}.jpg`} />
               </div>
               <WhiteSpace size="lg" />
-              <div className={styles.bookName}>{book.name}</div>
+              <div onClick={()=>{this.goDetail(book.id)}} className={styles.bookName}>{book.name}</div>
               <div className={styles.authorName}>{book.author} </div>
-              <div className={styles.quote}>“{book.quote}”</div>
+              <div className={styles.quote}>“{book.description}”</div>
               {/* <div className={styles.rate}> */}
               <div className={styles.score}>
                 <Rate disabled allowHalf value={book.score / 2} />{' '}
@@ -30,7 +34,7 @@ class BookItem extends PureComponent {
               </div>
               <WhiteSpace />
               <div>
-                {book.numberOfComments}
+                {book.commentNum}
                 人评价
               </div>
               {/* </div> */}
