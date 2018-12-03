@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import { Card, WingBlank, WhiteSpace, Button, List, NavBar, Icon } from 'antd-mobile';
+import { Card, WingBlank, WhiteSpace, Toast, Button, List, NavBar, Icon } from 'antd-mobile';
 import { Rate } from 'antd';
 import styles from './index.less';
 
@@ -13,12 +13,25 @@ const Brief = Item.Brief;
 class Detail extends PureComponent {
   componentDidMount() {
     const { match } = this.props;
-    console.log(match);
-    this.props.dispatch({ type: 'detail/getBookById', id: match.params.id });
+    this.props.dispatch({
+      type: 'detail/getBookById',
+      id: match.params.id,
+    });
   }
+  componentDidUpdate(prevProps, prevState) {
+    prevProps.detail.opRes && Toast.info('添加成功', 1);
+  }
+
+  addToCart = bookId => {
+    console.log(bookId);
+    this.props.dispatch({
+      type: 'detail/addToCart',
+      bookId: bookId,
+    });
+  };
+
   render() {
     const { detail } = this.props;
-    console.log(detail);
     const book = detail.book;
     return (
       <div className={styles.detail}>
@@ -36,7 +49,7 @@ class Detail extends PureComponent {
             </Card.Body>
           </Card>
         </div>
-        <div >
+        <div>
           <List
             renderHeader={() => (
               <div>
@@ -65,11 +78,16 @@ class Detail extends PureComponent {
             </Item>
           </List>
         </div>
-        <WhiteSpace/>
-        
+        <WhiteSpace />
 
         <div className={styles.footer}>
-          <Button type="primary" size="large">
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => {
+              this.addToCart(book.id);
+            }}
+          >
             加入购物车
           </Button>
         </div>

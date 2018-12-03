@@ -1,40 +1,25 @@
+import * as BookAPI from '../../services/index';
 export default {
   namespace: 'shopcart',
   state: {
-    list: [
-      {
-        id: 0,
-        name: '嫌疑人X的献身',
-        author: '[日] 东野圭吾',
-        price: '28.00',
-        num: 1,
-      },
-      {
-        id: 1,
-        name: '挪威的森林',
-        author: '[日] 村上春树',
-        price: '18.80元',
-        num: 1,
-      },
-      {
-        id: 3,
-        name: '嫌疑人X的献身',
-        author: '[日] 东野圭吾',
-        price: '28.00',
-        num: 1,
-      },
-      {
-        id: 4,
-        name: '挪威的森林',
-        author: '[日] 村上春树',
-        price: '18.80元',
-        num: 1,
-      },
-    ],
+    list: [],
     order: [],
   },
-  effects: {},
+  effects: {
+    *getAllCart(actions, { put, call }) {
+      const res = yield BookAPI.getCart();
+      if (res) {
+        yield put({
+          type: 'putCart',
+          list: res,
+        });
+      }
+    },
+  },
   reducers: {
+    putCart(state, { list }) {
+      return { ...state, list };
+    },
     delete(state, { payload: id }) {
       const { list } = state;
       const res = list.filter(item => item.id !== id.id);

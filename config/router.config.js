@@ -4,19 +4,41 @@ export default [
     component: '../layouts/BasicLayout',
     routes: [
       {
-        path: '/',
+        path: '/index',
         component: './index/index',
         title: '首页',
+        Routes: ['./routes/PrivateRoute.js'],
       },
       { path: '/login', component: './login/index', title: '登录' },
-      { path: '/category', component: './category/index', title: '分类' },
-      { path: '/me', component: './mine/index', title: '我的' },
-      { path: '/shop', component: './shopcart/index', title: '购物车' },
+      {
+        path: '/category',
+        component: './category/index',
+        title: '分类',
+        Routes: ['./routes/PrivateRoute.js'],
+      },
+      {
+        path: '/me',
+        component: './mine/index',
+        title: '我的',
+        Routes: ['./routes/PrivateRoute.js'],
+      },
+      {
+        path: '/shop',
+        component: './shopcart/index',
+        title: '购物车',
+        Routes: ['./routes/PrivateRoute.js'],
+      },
       { path: '/test', component: './test/index', title: '测试页面' },
       {
         path: '/detail',
         component: '../layouts/SimpleLayout',
-        routes: [{ path: '/detail/:id', component: './detail/index' }],
+        routes: [
+          {
+            path: '/detail/:id',
+            component: './detail/index',
+          },
+        ],
+        Routes: ['./routes/PrivateRoute.js'],
       },
       {
         path: '/exception',

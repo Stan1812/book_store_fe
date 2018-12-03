@@ -20,7 +20,10 @@ const codeMessage = {
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。',
 };
-
+const getToken = () => {
+  let token = localStorage.getItem('token');
+  return token || false;
+};
 const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -78,26 +81,15 @@ export default function request(url, option) {
     credentials: 'include',
   };
   const newOptions = { ...defaultOptions, ...options };
-  if (
-    newOptions.method === 'POST' ||
-    newOptions.method === 'PUT' ||
-    newOptions.method === 'DELETE'
-  ) {
-    if (!(newOptions.body instanceof FormData)) {
-      newOptions.headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json; charset=utf-8',
-        ...newOptions.headers,
-      };
-      newOptions.body = JSON.stringify(newOptions.body);
-    } else {
-      // newOptions.body is FormData
-      newOptions.headers = {
-        Accept: 'application/json',
-        ...newOptions.headers,
-      };
-    }
-  }
+  let token = getToken();
+
+  newOptions.headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json; charset=utf-8',
+    ...newOptions.headers,
+    Authorization: `Bearer ${token}`,
+  };
+  newOptions.body = JSON.stringify(newOptions.body);
 
   const expirys = options.expirys && 10;
   // options.expirys !== false, return the cache,

@@ -9,7 +9,7 @@ const tabBarData = [
     title: '首页',
     icon: 'shouye',
     selectedIcon: 'shouye',
-    link: '/',
+    link: '/index',
   },
   {
     title: '分类',

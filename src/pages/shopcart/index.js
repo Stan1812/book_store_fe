@@ -9,6 +9,9 @@ const CheckboxItem = Checkbox.CheckboxItem;
   shopcart,
 }))
 class ShopCart extends PureComponent {
+  componentDidMount() {
+    this.props.dispatch({type:'shopcart/getAllCart'});
+  }
   onBookChange = val => {
     // this.props.dispatch({type:'shopcart/delete',payload:{id:val}})
   };

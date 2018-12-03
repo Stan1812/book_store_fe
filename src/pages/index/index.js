@@ -8,6 +8,7 @@ import BookItem from './components/BookItem';
 }))
 class Index extends Component {
   componentDidMount() {
+    console.log(localStorage.getItem('token'))
     this.props.dispatch({ type: 'choice/getChoiceBook' });
   }
   render() {

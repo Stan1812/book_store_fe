@@ -1,10 +1,15 @@
 import React, { PureComponent } from 'react';
-import { Card, NavBar, WingBlank, WhiteSpace, List } from 'antd-mobile';
+import { Card, NavBar, WingBlank, WhiteSpace, Button, List } from 'antd-mobile';
 const Item = List.Item;
 const Brief = Item.Brief;
+import router from 'umi/router';
 import styles from './index.less';
 
 class Mine extends PureComponent {
+  singOut = () => {
+    localStorage.removeItem('token');
+    router.replace('/login');
+  };
   render() {
     return (
       <div>
@@ -32,6 +37,9 @@ class Mine extends PureComponent {
         <List renderHeader={() => '关于我们'} className="my-list">
           <Item arrow="horizontal">About us</Item>
         </List>
+        <Button type="primary" onClick={()=>{this.singOut()}} style={{ margin: '10px' }}>
+          退出登录
+        </Button>
       </div>
     );
   }
