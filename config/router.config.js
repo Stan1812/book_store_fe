@@ -28,6 +28,12 @@ export default [
         title: '购物车',
         Routes: ['./routes/PrivateRoute.js'],
       },
+      {
+        path: '/order',
+        component: './order/index',
+        title: '订单',
+        Routes: ['./routes/PrivateRoute.js'],
+      },
       { path: '/test', component: './test/index', title: '测试页面' },
       {
         path: '/detail',

@@ -1,70 +1,76 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { List, NavBar, Checkbox, Card, WhiteSpace, Stepper } from 'antd-mobile';
-import testimg from '../../assets/yay.jpg';
+const Item = List.Item;
 import styles from './index.less';
-
-const CheckboxItem = Checkbox.CheckboxItem;
+import CartItem from './CartItem';
 @connect(({ shopcart }) => ({
   shopcart,
 }))
 class ShopCart extends PureComponent {
   componentDidMount() {
-    this.props.dispatch({type:'shopcart/getAllCart'});
+    this.props.dispatch({ type: 'shopcart/getAllCart' });
   }
-  onBookChange = val => {
-    // this.props.dispatch({type:'shopcart/delete',payload:{id:val}})
-  };
-  onNumChange = val => {
+  onChange = (val, cartItemId,bookId) => {
     console.log(val);
+    if (val === 0) {
+      this.props.dispatch({
+        type: 'shopcart/deleteCart',
+        id: cartItemId,
+      });
+    } else {
+      this.props.dispatch({
+        type: 'shopcart/modify',
+        data: {
+          quantity: val,
+          id: cartItemId,
+          bookId:bookId
+        },
+      });
+    }
   };
-  selectItem = val => {
-    console.log(val);
+  onOrderChange = (checked, book) => {
+    let { bookId, quantity, price ,bookName} = book;
+    if (checked) {
+      this.props.dispatch({
+        type: 'shopcart/addOrder',
+        data: {
+          bookId,
+          quantity,
+          price,
+          bookName
+        },
+      });
+    } else {
+      this.props.dispatch({
+        type: 'shopcart/deleteOrder',
+        book: { bookId, quantity, price },
+      });
+    }
   };
+  submitOrder=()=>{
+    this.props.dispatch({
+      type:'shopcart/submitOrder'
+    })
+  }
   render() {
     const { route, shopcart } = this.props;
+    const list = shopcart.list;
     return (
-      <div>
+      <div className={styles.main}>
         <NavBar mode="light">{route.title}</NavBar>
         <List>
-          {shopcart.list.map((book, index) => (
-            <div key={index}>
+          {list.map(book => (
+            <div key={book.bookId}>
               <WhiteSpace size="lg" />
-              <Card full>
-                <Card.Body>
-                  <div className={styles.checkitem}>
-                    <CheckboxItem
-                      className={styles.check}
-                      key={book.value}
-                      onChange={() => this.onBookChange(book.id)}
-                    />
-                    <div className={styles.book}>
-                      <div className={styles.bookImg}>
-                        <img src={testimg} />
-                      </div>
-                      <div className={styles.bookInfo}>
-                        <div> {book.name}</div>
-                        <div>{book.author}</div>
-                        <div>{book.price}</div>
-                      </div>
-                    </div>
-                  </div>
-                </Card.Body>
-                <Card.Footer
-                  extra={
-                    <Stepper
-                      style={{ width: '90%', minWidth: '100px' }}
-                      showNumber
-                      max={10}
-                      min={0}
-                      value={book.num}
-                      onChange={() => this.onNumChange(book.num)}
-                    />
-                  }
-                />
-              </Card>
+              <CartItem onOrderChange={this.onOrderChange} onChange={this.onChange} book={book} />
             </div>
           ))}
+        </List>
+        <List className={styles.submitOrder}>
+          <Item onClick={this.submitOrder} extra={<div >提交订单</div>}>
+            <div className={styles.price}>￥{shopcart.totalPrice}</div>
+          </Item>
         </List>
       </div>
     );

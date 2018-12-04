@@ -11,6 +11,7 @@ const Brief = Item.Brief;
   detail,
 }))
 class Detail extends PureComponent {
+
   componentDidMount() {
     const { match } = this.props;
     this.props.dispatch({
@@ -21,7 +22,6 @@ class Detail extends PureComponent {
   componentDidUpdate(prevProps, prevState) {
     prevProps.detail.opRes && Toast.info('添加成功', 1);
   }
-
   addToCart = bookId => {
     console.log(bookId);
     this.props.dispatch({

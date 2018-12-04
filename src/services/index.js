@@ -35,8 +35,29 @@ export async function getBookById(id) {
 
 // shopping cart
 export async function addToCart(data) {
-  return request(`${makeUrl(`shopping/add?bookId=${data}&userId=111`)}`);
+  return request(`${makeUrl(`shopping/add?bookId=${data}`)}`);
 }
 export async function getCart() {
   return request(`${makeUrl('shopping/getall')}`);
 }
+export async function modifyCart(data) {
+  return request(`${makeUrl('shopping/modify')}`, {
+    method: 'POST',
+    body: data,
+  });
+}
+export async function deleteCart(id) {
+  return request(`${makeUrl(`shopping/delete?id=${id}`)}`);
+}
+
+//  orders
+export async function submitOrder(data) {
+  return request(`${makeUrl(`order/add`)}`, {
+    method: 'POST',
+    body: data,
+  });
+}
+export async function  getOrder() {
+  return request(`${makeUrl('order/queryAllByUserId')}`)
+}
+

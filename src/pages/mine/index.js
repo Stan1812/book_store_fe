@@ -26,7 +26,13 @@ class Mine extends PureComponent {
         </Card>
 
         <List renderHeader={() => '我的'} className="my-list">
-          <Item arrow="horizontal" multipleLine onClick={() => {}}>
+          <Item
+            arrow="horizontal"
+            multipleLine
+            onClick={() => {
+              router.push('/order');
+            }}
+          >
             订单 <Brief>全部订单</Brief>
           </Item>
           <Item arrow="horizontal" multipleLine onClick={() => {}}>
@@ -37,7 +43,13 @@ class Mine extends PureComponent {
         <List renderHeader={() => '关于我们'} className="my-list">
           <Item arrow="horizontal">About us</Item>
         </List>
-        <Button type="primary" onClick={()=>{this.singOut()}} style={{ margin: '10px' }}>
+        <Button
+          type="primary"
+          onClick={() => {
+            this.singOut();
+          }}
+          style={{ margin: '10px' }}
+        >
           退出登录
         </Button>
       </div>

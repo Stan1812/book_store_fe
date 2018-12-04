@@ -8,14 +8,12 @@ import BookItem from './components/BookItem';
 }))
 class Index extends Component {
   componentDidMount() {
-    console.log(localStorage.getItem('token'))
     this.props.dispatch({ type: 'choice/getChoiceBook' });
   }
   render() {
     const { route, choice } = this.props;
-    console.log('fuck',choice)
     return (
-      <div>
+      <div style={{maxHeight:"100vh"}}>
         <NavBar mode="light">{route.title}</NavBar>
         <WingBlank>
           <Carousel className="space-carousel" dots={false} cellSpacing={20}>
