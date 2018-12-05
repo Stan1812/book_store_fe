@@ -1,11 +1,12 @@
 import * as BookAPI from '../../services/index';
 import router from 'umi/router';
-import { from } from 'rxjs';
 export default {
   namespace: 'user',
   state: {
-    loginStutus: false,
+    loginStatus: false,
     token: '',
+    registerRes: '',
+    message: '',
   },
   subscriptions: {
     setup({ history, dispatch }) {
@@ -20,22 +21,29 @@ export default {
   effects: {
     *login({ data }, { put, call }) {
       let res = yield BookAPI.login(data);
-      if (res.message == 'login success') {
+      if (res.status == 1) {
         yield put({
           type: 'setLoginStatus',
           token: res.token,
         });
         localStorage.setItem('token', res.token);
-        yield put(router.replace('/index'));
+        localStorage.setItem('username', data.username);
+        router.replace('/index');
       }
     },
     *register({ data }, { put, call }) {
       let res = yield BookAPI.register(data);
+      let status = res.status === 0 ? false : true;
+      yield put({ type: 'setRegStastus', message: res.message, registerRes: true });
+      yield put({ type: 'setRegStastus', message: res.message, registerRes: false });
     },
   },
   reducers: {
     setLoginStatus(state, { token }) {
       return { ...state, loginStatus: true, token: token };
+    },
+    setRegStastus(state, { message, registerRes }) {
+      return { ...state, registerRes, message };
     },
   },
 };

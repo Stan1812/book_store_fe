@@ -1,17 +1,21 @@
 import React, { PureComponent } from 'react';
-import { List, InputItem, WingBlank, WhiteSpace, Card, Button } from 'antd-mobile';
+import { List, InputItem, WingBlank, WhiteSpace, Toast,Card, Button } from 'antd-mobile';
 import { Form } from 'antd';
 import { connect } from 'dva';
 import coverImg from '../../assets/cover.png';
 import styles from './index.less';
+
 class Login extends PureComponent {
   state = {
-    logOrReg: false,
+    logOrReg: true,
     username: '',
     password: '',
     phone: '',
     address: '',
   };
+  componentDidUpdate(prevProps, prevState) {
+    prevProps.user.registerRes  &&Toast.info(prevProps.user.message, 1);
+  }
   handleClick = () => {
     this.inputRef.focus();
   };
@@ -22,13 +26,13 @@ class Login extends PureComponent {
   };
   login = () => {
     let { username, password } = this.state;
-    console.log({username, password })
+    console.log({ username, password });
     this.props.dispatch({ type: 'user/login', data: { username, password } });
   };
   register = () => {
     let { username, password, phone, address } = this.state;
-    // this.props.dispatch({ type: 'user/login', data: { username, password, phone, address } });
-    console.log( { username, password, phone, address })
+    this.props.dispatch({ type: 'user/register', data: { username, password, phone, address } });
+    console.log({ username, password, phone, address });
   };
   render() {
     return (

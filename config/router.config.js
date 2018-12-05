@@ -34,6 +34,12 @@ export default [
         title: '订单',
         Routes: ['./routes/PrivateRoute.js'],
       },
+      {
+        path: '/admin',
+        component: './admin/index',
+        title: '管理',
+        Routes: ['./routes/PrivateRoute.js'],
+      },
       { path: '/test', component: './test/index', title: '测试页面' },
       {
         path: '/detail',

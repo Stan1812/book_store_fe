@@ -20,7 +20,7 @@ class Mine extends PureComponent {
               <div className={styles.avatarBox}>
                 <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
               </div>
-              <div>OneMoreLight</div>
+              <div>{localStorage.getItem('username')}</div>
             </div>
           </Card.Body>
         </Card>
@@ -40,7 +40,7 @@ class Mine extends PureComponent {
             <Brief>99999999.99</Brief>
           </Item>
         </List>
-        <List renderHeader={() => '关于我们'} className="my-list">
+        <List renderHeader={() => '关于'} className="my-list">
           <Item arrow="horizontal">About us</Item>
         </List>
         <Button

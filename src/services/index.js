@@ -18,6 +18,10 @@ export async function register(params) {
   });
 }
 
+export async function getAllUser(){
+  return request(`${makeUrl('user/allUser')}`)
+}
+
 //  book
 export async function getChoiceBook() {
   return request(`${makeUrl('book/choice')}`);
@@ -57,7 +61,14 @@ export async function submitOrder(data) {
     body: data,
   });
 }
-export async function  getOrder() {
-  return request(`${makeUrl('order/queryAllByUserId')}`)
+export async function getOrder() {
+  return request(`${makeUrl('order/queryAllByUserId')}`);
 }
 
+export async function getAllOrders() {
+  return request(`${makeUrl('order/queryAll')}`);
+}
+
+export async function modifyOrder(state,id) {
+  return request(`${makeUrl(`order/updateStatus?state=${state}&id=${id}`)}`);
+}
